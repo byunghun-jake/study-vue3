@@ -1,18 +1,31 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <section class="px-4 py-6 flex flex-col flex-1">
+    <h1 class="text-2xl font-bold mb-6">
+      List
+    </h1>
+    <div class="overflow-scroll">
+      <ul class="w-full grid grid-cols-4 gap-4">
+        <li v-for="i in count" :key="i">
+          <ArticleListItem />
+        </li>
+      </ul>
+    </div>
+  </section>
 </template>
 
 <script>
+import { ref } from "@vue/reactivity"
+import ArticleListItem from "../components/ArticleListItem.vue"
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
 
 export default {
-  name: 'Home',
-  components: {
-    HelloWorld
-  }
+  name: "Home",
+  components: { ArticleListItem },
+  setup() {
+    const count = ref(40)
+    return {
+      count,
+    }
+  },
 }
 </script>
