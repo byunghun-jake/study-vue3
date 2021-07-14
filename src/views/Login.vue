@@ -38,6 +38,7 @@
 <script>
 import { computed, reactive } from "vue"
 import { useStore } from "vuex"
+import { useRouter } from "vue-router"
 import Input from "@/components/Input.vue"
 import Button from "@/components/Button.vue"
 export default {
@@ -45,6 +46,7 @@ export default {
   name: "Login",
   setup() {
     const store = useStore()
+    const router = useRouter()
     const form = reactive({
       userId: {
         value: "",
@@ -65,9 +67,12 @@ export default {
       try {
         const res = await store.dispatch("root/requestLogin", {
           userId: form.userId.value,
-          password: form.password.value,
+          userPwd: form.password.value,
         })
-        alert(`accessToken: ${res.data.accessToken}`)
+        console.log(res)
+        store.commit("root/SET_TOKEN", res.data.accessToken)
+        store.commit("root/SET_USERID", res.data.userId)
+        router.push({ name: "Home" })
       } catch (error) {
         alert(error)
       }
