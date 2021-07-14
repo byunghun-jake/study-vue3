@@ -8,9 +8,9 @@
         class="w-96 bg-white mx-auto py-10 px-4 shadow-lg rounded grid gap-6"
       >
         <Input
-          :label="form.email.label"
-          :type="form.email.type"
-          v-model.trim="form.email.value"
+          :label="form.userId.label"
+          :type="form.userId.type"
+          v-model.trim="form.userId.value"
         />
         <div class="grid gap-1">
           <Input
@@ -46,10 +46,10 @@ export default {
   setup() {
     const store = useStore()
     const form = reactive({
-      email: {
+      userId: {
         value: "",
-        type: "email",
-        label: "이메일",
+        type: "text",
+        label: "아이디",
       },
       password: {
         value: "",
@@ -58,13 +58,13 @@ export default {
       },
     })
 
-    const isValid = computed(() => form.email.value && form.password.value)
+    const isValid = computed(() => form.userId.value && form.password.value)
 
     const onLogin = async () => {
-      console.log(form.email.value, form.password.value)
+      console.log(form.userId.value, form.password.value)
       try {
         const res = await store.dispatch("root/requestLogin", {
-          email: form.email.value,
+          userId: form.userId.value,
           password: form.password.value,
         })
         alert(`accessToken: ${res.data.accessToken}`)
