@@ -9,7 +9,7 @@ export const requestLogin = ({ state }, payload) => {
 
 export const requestSignup = ({ state }, payload) => {
   console.log("requestSignup", state, payload)
-  const url = "/auth/signup"
+  const url = "/users/account"
   const body = payload
   return axios.post(url, body)
 }
