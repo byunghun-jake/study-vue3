@@ -1,10 +1,10 @@
 <template>
   <div class="h-screen flex flex-col relative">
-    <div class="bg-gray-200 p-4">
+    <header class="bg-gray-200 p-4">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link> |
       <router-link to="/login">Login</router-link>
-    </div>
+    </header>
     <div class="flex flex-1 max-h-screen overflow-scroll">
       <aside
         class="w-64 transition-all flex-shrink-0 h-full bg-teal-100 pt-10 relative flex flex-col"
@@ -18,14 +18,25 @@
         </div>
         <button></button>
       </aside>
-      <router-view />
+      <div v-if="loading">로딩중입니다.</div>
+      <router-view
+        v-show="!loading"
+        :loading="loading"
+        @loading-update="loading = false"
+      />
     </div>
   </div>
 </template>
 
 <script>
+import { ref } from "@vue/reactivity"
 export default {
-  setup() {},
+  setup() {
+    const loading = ref("true")
+    return {
+      loading,
+    }
+  },
 }
 </script>
 

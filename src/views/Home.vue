@@ -16,13 +16,24 @@
 <script>
 import { ref } from "@vue/reactivity"
 import ArticleListItem from "../components/ArticleListItem.vue"
+import { onMounted } from "@vue/runtime-core"
 // @ is an alias to /src
 
 export default {
   name: "Home",
   components: { ArticleListItem },
-  setup() {
+  props: {
+    loading: Boolean,
+  },
+  setup(props, { emit }) {
     const count = ref(40)
+
+    onMounted(() => {
+      setTimeout(() => {
+        emit("loading-update")
+      }, 2000)
+    })
+
     return {
       count,
     }
