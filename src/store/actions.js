@@ -13,3 +13,13 @@ export const requestSignup = ({ state }, payload) => {
   const body = payload
   return axios.post(url, body)
 }
+
+export const requestCheckToken = async ({ state }) => {
+  console.log("requestCheckToken", state)
+  const url = "/auth/valiable"
+  return axios.get(url, {
+    headers: {
+      Authorization: `Bearer ${state.token}`,
+    },
+  })
+}

@@ -77,11 +77,13 @@ import Input from "@/components/Input.vue"
 import Button from "@/components/Button.vue"
 import { reactive } from "vue"
 import { useStore } from "vuex"
+import { useRouter } from "vue-router"
 export default {
   name: "Signup",
   components: { Input, Button },
   setup() {
     const store = useStore()
+    const router = useRouter()
     const form = reactive({
       belong: {
         label: "소속",
@@ -206,8 +208,15 @@ export default {
       })
       console.log(formData)
       try {
-        const res = await store.dispatch("root/requestSignup", formData)
-        console.log(res)
+        await store.dispatch("root/requestSignup", formData)
+        const loginFormData = {
+          userId: form.userId.value,
+          password: form.password.value,
+        }
+        const res = await store.dispatch("root/requestLogin", loginFormData)
+        store.commit("root/SET_TOKEN", res.data.accessToken)
+        store.commit("root/SET_USERID", res.data.userId)
+        router.push({ name: "Home" })
       } catch (error) {
         alert(error)
       }

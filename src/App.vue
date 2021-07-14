@@ -1,10 +1,6 @@
 <template>
   <div class="h-screen flex flex-col relative">
-    <header class="bg-gray-200 p-4">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link> |
-      <router-link to="/login">Login</router-link>
-    </header>
+    <TheHeader />
     <div class="flex flex-1 max-h-screen overflow-scroll">
       <aside
         class="w-64 transition-all flex-shrink-0 h-full bg-teal-100 pt-10 relative flex flex-col"
@@ -24,8 +20,21 @@
 </template>
 
 <script>
+import TheHeader from "@/components/TheHeader.vue"
+import { onBeforeMount } from "vue"
+import { useStore } from "vuex"
 export default {
+  components: {
+    TheHeader,
+  },
   setup() {
+    const store = useStore()
+    onBeforeMount(() => {
+      const token = window.localStorage.getItem("accessToken")
+      if (token) {
+        store.commit("root/SET_TOKEN", token)
+      }
+    })
     return {}
   },
 }
