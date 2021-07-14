@@ -67,7 +67,7 @@ export default {
       try {
         const res = await store.dispatch("root/requestLogin", {
           userId: form.userId.value,
-          userPwd: form.password.value,
+          password: form.password.value,
         })
         console.log(res)
         store.commit("root/SET_TOKEN", res.data.accessToken)
