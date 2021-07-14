@@ -63,18 +63,11 @@ export default {
     const onLogin = async () => {
       console.log(form.email.value, form.password.value)
       try {
-        // const res = await store.dispatch("root/requestLogin", {
-        //   email: form.email.value,
-        //   password: form.password.value,
-        // })
-        // alert(`accessToken: ${res.data.accessToken}`)
-
-        store
-          .dispatch("root/requestLogin", {
-            email: form.email.value,
-            password: form.password.value,
-          })
-          .then((res) => alert(`accessToken: ${res.data.accessToken}`))
+        const res = await store.dispatch("root/requestLogin", {
+          email: form.email.value,
+          password: form.password.value,
+        })
+        alert(`accessToken: ${res.data.accessToken}`)
       } catch (error) {
         alert(error)
       }

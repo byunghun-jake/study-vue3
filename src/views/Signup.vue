@@ -63,7 +63,7 @@
             여기 올리면 비밀번호 보임
           </span>
         </div>
-        <Button :text="'회원가입하기'" />
+        <Button :text="'회원가입하기'" @click="onSignup" />
         <router-link class="mx-auto" :to="{ name: 'Login' }">
           로그인
         </router-link>
@@ -76,10 +76,12 @@
 import Input from "@/components/Input.vue"
 import Button from "@/components/Button.vue"
 import { reactive } from "vue"
+import { useStore } from "vuex"
 export default {
   name: "Signup",
   components: { Input, Button },
   setup() {
+    const store = useStore()
     const form = reactive({
       belong: {
         label: "소속",
@@ -157,7 +159,7 @@ export default {
     }
 
     const onBelongUpdate = () => {
-      maxLengthValidation("belong")
+      maxLengthValidation("belong", 30)
     }
     const onPositionUpdate = (e) => {
       maxLengthValidation("position", 30)
@@ -194,6 +196,23 @@ export default {
       form.password2.type = "password"
     }
 
+    const onSignup = async () => {
+      const formData = {}
+      Object.keys(form).forEach((key) => {
+        if (key === "password2") {
+          return
+        }
+        formData[key] = form[key].value
+      })
+      console.log(formData)
+      try {
+        const res = await store.dispatch("root/requestSignup", formData)
+        console.log(res)
+      } catch (error) {
+        alert(error)
+      }
+    }
+
     return {
       form,
       onBelongUpdate,
@@ -204,6 +223,7 @@ export default {
       onPassword2Update,
       showPassword,
       hidePassword,
+      onSignup,
     }
   },
 }

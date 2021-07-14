@@ -48,7 +48,7 @@ export default {
 .required {
   label:before {
     content: "";
-    @apply absolute -top-1 -left-1 w-1 h-1 bg-red-600;
+    @apply absolute -top-0.5 -left-1 w-1 h-1 bg-red-600 rounded-full;
   }
 }
 </style>

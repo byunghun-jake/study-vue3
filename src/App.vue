@@ -18,24 +18,15 @@
         </div>
         <button></button>
       </aside>
-      <div v-if="loading">로딩중입니다.</div>
-      <router-view
-        v-show="!loading"
-        :loading="loading"
-        @loading-update="loading = false"
-      />
+      <router-view />
     </div>
   </div>
 </template>
 
 <script>
-import { ref } from "@vue/reactivity"
 export default {
   setup() {
-    const loading = ref("true")
-    return {
-      loading,
-    }
+    return {}
   },
 }
 </script>
