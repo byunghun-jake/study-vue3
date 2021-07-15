@@ -163,29 +163,24 @@ export default {
     const onBelongUpdate = () => {
       maxLengthValidation("belong", 30)
     }
-    const onPositionUpdate = (e) => {
+    const onPositionUpdate = () => {
       maxLengthValidation("position", 30)
-      console.log(e)
     }
-    const onNameUpdate = (e) => {
+    const onNameUpdate = () => {
       maxLengthValidation("name", 30)
-      console.log(e)
     }
-    const onUserIdUpdate = (e) => {
+    const onUserIdUpdate = () => {
       maxLengthValidation("userId", 16)
-      console.log(e)
     }
-    const onPasswordUpdate = (e) => {
+    const onPasswordUpdate = () => {
       minLengthValidation("password", 9)
       maxLengthValidation("password", 16)
       passwordMatchValidation()
-      console.log(e)
     }
-    const onPassword2Update = (e) => {
+    const onPassword2Update = () => {
       minLengthValidation("password2", 9)
       maxLengthValidation("password2", 16)
       passwordMatchValidation()
-      console.log(e)
     }
 
     const showPassword = () => {
@@ -214,6 +209,7 @@ export default {
           password: form.password.value,
         }
         const res = await store.dispatch("root/requestLogin", loginFormData)
+        console.log(res)
         store.commit("root/SET_TOKEN", res.data.accessToken)
         store.commit("root/SET_USERID", res.data.userId)
         router.push({ name: "Home" })
