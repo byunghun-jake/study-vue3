@@ -1,7 +1,7 @@
-const token = null
+const accessToken = null
 const userId = null
 
 export default {
-  token,
+  accessToken,
   userId,
 }

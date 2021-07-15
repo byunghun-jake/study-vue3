@@ -1,6 +1,10 @@
 export const SET_TOKEN = (state, token) => {
-  state.token = token
-  window.localStorage.setItem("accessToken", token)
+  state.accessToken = token
+  if (!token) {
+    window.localStorage.removeItem("accessToken")
+  } else {
+    window.localStorage.setItem("accessToken", token)
+  }
 }
 
 export const SET_USERID = (state, userId) => {

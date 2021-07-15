@@ -14,12 +14,12 @@ export const requestSignup = ({ state }, payload) => {
   return axios.post(url, body)
 }
 
-export const requestCheckToken = async ({ state }) => {
+export const requestCheckToken = ({ state }) => {
   console.log("requestCheckToken", state)
   const url = "/auth/valiable"
   return axios.get(url, {
     headers: {
-      Authorization: state.token,
+      Authorization: state.accessToken,
     },
   })
 }

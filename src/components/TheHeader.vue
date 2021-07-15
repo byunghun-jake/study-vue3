@@ -5,6 +5,11 @@
         <router-link :to="{ name: 'Home' }">Home</router-link>
       </li>
       <li>
+        <router-link :to="{ name: 'Room', params: { id: 1 } }"
+          >Room</router-link
+        >
+      </li>
+      <li>
         <router-link :to="{ name: 'About' }">About</router-link>
       </li>
       <li v-if="!userLoggedIn">
@@ -14,9 +19,6 @@
       </li>
       <li v-else>
         <button @click="onLogout">Logout</button>
-      </li>
-      <li>
-        <button @click="onCheckToken">CheckToken</button>
       </li>
     </ul>
   </header>
@@ -33,16 +35,11 @@ export default {
 
     const onLogout = () => {
       store.commit("root/SET_TOKEN", null)
-      store.commit("root/SET_USERID", null)
     }
 
-    const onCheckToken = () => {
-      store.dispatch("root/requestCheckToken")
-    }
     return {
       userLoggedIn,
       onLogout,
-      onCheckToken,
     }
   },
 }

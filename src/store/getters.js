@@ -1,6 +1,10 @@
 export const userLoggedIn = (state) => {
-  if (state.token) {
+  if (state.accessToken) {
     return true
   }
   return false
+}
+
+export const accessToken = (state) => {
+  return state.accessToken
 }
