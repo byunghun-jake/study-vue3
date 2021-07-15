@@ -19,7 +19,7 @@ export const requestCheckToken = async ({ state }) => {
   const url = "/auth/valiable"
   return axios.get(url, {
     headers: {
-      Authorization: `Bearer ${state.token}`,
+      Authorization: state.token,
     },
   })
 }
