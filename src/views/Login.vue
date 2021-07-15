@@ -1,12 +1,10 @@
 <template>
-  <section class="px-4 py-6 flex flex-col flex-1">
-    <h1 class="text-2xl font-bold mb-6">
-      LOGIN
-    </h1>
-    <div class="container bg-red-200">
-      <div
-        class="w-96 bg-white mx-auto py-10 px-4 shadow-lg rounded grid gap-6"
-      >
+  <section class="flex flex-col flex-1 ">
+    <div class="login-background">
+      <div class="login-container">
+        <h1 class="text-2xl font-bold mb-6 justify-self-center">
+          LOGIN
+        </h1>
         <Input
           :label="form.userId.label"
           :type="form.userId.type"
@@ -19,7 +17,7 @@
             v-model.trim="form.password.value"
           />
           <span
-            class="ml-auto cursor-help"
+            class="ml-auto cursor-help text-sm"
             @mouseenter="showPassword"
             @mouseleave="hidePassword"
           >
@@ -31,6 +29,7 @@
           회원가입
         </router-link>
       </div>
+      <div class="login-background-layer"></div>
     </div>
   </section>
 </template>
@@ -96,4 +95,16 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped lang="scss">
+.login-background {
+  background: url("../assets/loginBG.jpg");
+  @apply relative w-full h-full pt-20 bg-center bg-contain;
+}
+.login-background-layer {
+  background: rgba($color: #000000, $alpha: 0.3);
+  @apply absolute inset-0;
+}
+.login-container {
+  @apply w-96 bg-white mx-auto py-10 px-4 shadow-lg rounded grid gap-6 relative z-10;
+}
+</style>

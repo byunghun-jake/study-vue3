@@ -4,7 +4,7 @@
       List
     </h1>
     <div class="overflow-scroll">
-      <ul class="w-full grid grid-cols-4 gap-4">
+      <ul class="w-full grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
         <li v-for="i in count" :key="i">
           <ArticleListItem />
         </li>

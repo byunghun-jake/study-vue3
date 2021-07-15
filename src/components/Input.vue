@@ -5,8 +5,10 @@
     }}</label>
     <input
       :id="`${label}-label`"
-      class="border py-2 px-4 rounded-sm"
+      class="border py-2 px-4 rounded bg-gray-50"
+      :class="{ 'border-red-500': error, 'border-2': error }"
       :value="modelValue"
+      autocomplete="off"
       :type="type"
       @input="$emit('update:modelValue', $event.target.value)"
     />
@@ -18,6 +20,7 @@
 </template>
 
 <script>
+import { computed } from "@vue/runtime-core"
 export default {
   name: "Input",
   props: {
@@ -38,8 +41,19 @@ export default {
       type: Boolean,
     },
     errors: {
+      default: () => {
+        return {}
+      },
       type: Object,
     },
+  },
+  setup(props) {
+    const error = computed(() => {
+      return Object.keys(props.errors).length > 0
+    })
+    return {
+      error,
+    }
   },
 }
 </script>

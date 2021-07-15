@@ -1,7 +1,11 @@
 <template>
   <button
     class="py-3 px-4  text-white w-full font-bold rounded"
-    :class="{ 'bg-gray-600': disabled, 'bg-teal-600': !disabled }"
+    :class="{
+      'bg-gray-600': disabled,
+      'bg-teal-600': !disabled,
+      'cursor-not-allowed': disabled,
+    }"
     :disabled="disabled"
   >
     {{ text }}

@@ -1,12 +1,10 @@
 <template>
-  <section class="px-4 py-6 flex flex-col flex-1">
-    <h1 class="text-2xl font-bold mb-6">
-      회원가입
-    </h1>
-    <div class="container bg-red-200">
-      <div
-        class="w-96 bg-white mx-auto py-10 px-4 shadow-lg rounded grid gap-6"
-      >
+  <section class="flex flex-col flex-1">
+    <div class="signup-background">
+      <div class="signup-container">
+        <h1 class="text-2xl font-bold mb-4 justify-self-center">
+          회원가입
+        </h1>
         <Input
           :label="form.belong.label"
           :type="form.belong.type"
@@ -56,18 +54,20 @@
             @update:modelValue="onPassword2Update"
           />
           <span
-            class="ml-auto cursor-help"
+            class="ml-auto cursor-help text-sm"
             @mouseenter="showPassword"
             @mouseleave="hidePassword"
           >
             여기 올리면 비밀번호 보임
           </span>
         </div>
-        <Button :text="'회원가입하기'" @click="onSignup" />
-        <router-link class="mx-auto" :to="{ name: 'Login' }">
-          로그인
-        </router-link>
+        <Button
+          :text="'회원가입하기'"
+          :disabled="!signupValid"
+          @click="onSignup"
+        />
       </div>
+      <div class="login-background-layer"></div>
     </div>
   </section>
 </template>
@@ -75,7 +75,7 @@
 <script>
 import Input from "@/components/Input.vue"
 import Button from "@/components/Button.vue"
-import { reactive } from "vue"
+import { computed, reactive } from "vue"
 import { useStore } from "vuex"
 import { useRouter } from "vue-router"
 export default {
@@ -128,6 +128,18 @@ export default {
         required: true,
       },
     })
+
+    const requiredValidation = (key) => {
+      if (form[key].value.length < 1) {
+        console.log(`필수 입력 요소입니다.`)
+        form[key].errors.required = `필수 입력 요소입니다.`
+        return false
+      }
+      if (form[key].errors.required) {
+        delete form[key].errors.required
+      }
+    }
+
     const maxLengthValidation = (key, maxLength = 1) => {
       if (form[key].value.length > maxLength) {
         console.log(`최대 ${maxLength}자까지 입력 가능합니다.`)
@@ -151,6 +163,9 @@ export default {
     }
 
     const passwordMatchValidation = () => {
+      if (!form.password2.value) {
+        return true
+      }
       if (form.password.value !== form.password2.value) {
         form.password2.errors.misMatch = `비밀번호가 일치하지 않습니다.`
         return false
@@ -168,18 +183,22 @@ export default {
     }
     const onNameUpdate = () => {
       maxLengthValidation("name", 30)
+      requiredValidation("name")
     }
     const onUserIdUpdate = () => {
       maxLengthValidation("userId", 16)
+      requiredValidation("userId")
     }
     const onPasswordUpdate = () => {
       minLengthValidation("password", 9)
       maxLengthValidation("password", 16)
+      requiredValidation("password")
       passwordMatchValidation()
     }
     const onPassword2Update = () => {
       minLengthValidation("password2", 9)
       maxLengthValidation("password2", 16)
+      requiredValidation("password2")
       passwordMatchValidation()
     }
 
@@ -192,6 +211,12 @@ export default {
       form.password.type = "password"
       form.password2.type = "password"
     }
+
+    const signupValid = computed(() => {
+      return Object.keys(form).every((key) => {
+        return Object.keys(form[key].errors).length === 0
+      })
+    })
 
     const onSignup = async () => {
       const formData = {}
@@ -229,9 +254,22 @@ export default {
       showPassword,
       hidePassword,
       onSignup,
+      signupValid,
     }
   },
 }
 </script>
 
-<style></style>
+<style scoped lang="scss">
+.signup-background {
+  background: url("../assets/loginBG.jpg");
+  @apply relative w-full h-full pt-10 bg-center bg-contain;
+}
+.login-background-layer {
+  background: rgba($color: #000000, $alpha: 0.3);
+  @apply absolute inset-0;
+}
+.signup-container {
+  @apply max-w-md w-full bg-white mx-auto py-10 px-4 shadow-lg rounded grid gap-6 relative z-10;
+}
+</style>

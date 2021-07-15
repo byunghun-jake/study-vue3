@@ -1,26 +1,47 @@
 <template>
-  <header class="bg-gray-200 p-4">
+  <header class="bg-white border-b p-4 flex justify-between items-center">
     <ul class="flex">
       <li>
-        <router-link :to="{ name: 'Home' }">Home</router-link>
-      </li>
-      <li>
-        <router-link :to="{ name: 'Room', params: { id: 1 } }"
-          >Room</router-link
+        <router-link
+          :to="{ name: 'Home' }"
+          class="py-2 px-4 rounded hover:bg-gray-100"
+          >Home</router-link
         >
       </li>
       <li>
-        <router-link :to="{ name: 'About' }">About</router-link>
+        <router-link
+          :to="{ name: 'Room', params: { id: 1 } }"
+          class="py-2 px-4 rounded hover:bg-gray-100"
+        >
+          Room
+        </router-link>
       </li>
+      <li>
+        <router-link
+          :to="{ name: 'About' }"
+          class="py-2 px-4 rounded hover:bg-gray-100"
+          >About</router-link
+        >
+      </li>
+    </ul>
+    <div>
       <li v-if="!userLoggedIn">
-        <router-link :to="{ name: 'Login' }">
+        <router-link
+          :to="{ name: 'Login' }"
+          class="py-2 px-4 bg-white rounded inline-block hover:bg-gray-100"
+        >
           Login
         </router-link>
       </li>
       <li v-else>
-        <button @click="onLogout">Logout</button>
+        <button
+          @click="onLogout"
+          class="py-2 px-4 bg-white rounded inline-block"
+        >
+          Logout
+        </button>
       </li>
-    </ul>
+    </div>
   </header>
 </template>
 
@@ -47,6 +68,6 @@ export default {
 
 <style scoped lang="scss">
 li {
-  @apply inline-block mr-2;
+  @apply inline-block mr-2 font-bold;
 }
 </style>
