@@ -8,3 +8,7 @@ export const userLoggedIn = (state) => {
 export const accessToken = (state) => {
   return state.accessToken
 }
+
+export const showLoginRequiredModal = (state) => {
+  return state.showLoginRequiredModal
+}

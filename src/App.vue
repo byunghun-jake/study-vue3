@@ -16,15 +16,29 @@
       <router-view> </router-view>
     </div>
   </div>
+  <Modal v-if="showLoginRequiredModal" @close="closeModal">
+    <template v-slot:header>
+      <div>
+        어라라?
+      </div>
+    </template>
+    <template v-slot:body>
+      <div>
+        로그인이 필요한 페이지입니다.
+      </div>
+    </template>
+  </Modal>
 </template>
 
 <script>
 import TheHeader from "@/components/TheHeader.vue"
-import { onBeforeMount, ref } from "vue"
+import Modal from "@/components/Modal.vue"
+import { computed, onBeforeMount, ref } from "vue"
 import { useStore } from "vuex"
 export default {
   components: {
     TheHeader,
+    Modal,
   },
   setup() {
     const store = useStore()
@@ -35,10 +49,19 @@ export default {
       }
     })
     const asideActivated = ref(true)
+    const showLoginRequiredModal = computed(() => {
+      return store.getters["root/showLoginRequiredModal"]
+    })
+
     const toggleAside = () => {
       asideActivated.value = !asideActivated.value
     }
-    return { asideActivated, toggleAside }
+
+    const closeModal = () => {
+      store.commit("root/SET_LOGIN_REQUIRED_MODAL", false)
+    }
+
+    return { asideActivated, toggleAside, showLoginRequiredModal, closeModal }
   },
 }
 </script>

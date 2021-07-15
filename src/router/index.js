@@ -72,7 +72,7 @@ router.beforeEach(async (to) => {
     router.push({ name: "Home" })
   } else if (to.meta.authRequired === true && !token) {
     // 토큰이 존재하지 않는다면
-    alert("로그인이 필요한 페이지입니다.")
+    store.commit("root/SET_LOGIN_REQUIRED_MODAL", true)
     router.push({ name: "Login" })
   } else {
     return true
