@@ -141,7 +141,7 @@ export default {
     }
 
     const maxLengthValidation = (key, maxLength = 1) => {
-      if (form[key].value.length >= maxLength) {
+      if (form[key].value.length > maxLength) {
         console.log(`최대 ${maxLength}자까지 입력 가능합니다.`)
         form[key].errors.maxLength = `최대 ${maxLength}자까지 입력 가능합니다.`
         return false
@@ -152,7 +152,7 @@ export default {
     }
 
     const minLengthValidation = (key, minLength = 1) => {
-      if (form[key].value.length <= minLength) {
+      if (form[key].value.length < minLength) {
         console.log(`최대 ${minLength}자까지 입력 가능합니다.`)
         form[key].errors.minLength = `최소 ${minLength}자 이상 입력해주세요.`
         return false
