@@ -36,7 +36,7 @@
       <li v-else>
         <button
           @click="onLogout"
-          class="py-2 px-4 bg-white rounded inline-block"
+          class="py-2 px-4 bg-white rounded inline-block hover:bg-gray-100"
         >
           Logout
         </button>

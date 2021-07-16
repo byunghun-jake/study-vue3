@@ -141,7 +141,7 @@ export default {
     }
 
     const maxLengthValidation = (key, maxLength = 1) => {
-      if (form[key].value.length > maxLength) {
+      if (form[key].value.length >= maxLength) {
         console.log(`최대 ${maxLength}자까지 입력 가능합니다.`)
         form[key].errors.maxLength = `최대 ${maxLength}자까지 입력 가능합니다.`
         return false
